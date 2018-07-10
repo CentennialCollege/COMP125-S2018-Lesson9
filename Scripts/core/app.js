@@ -11,9 +11,11 @@
   let max;
 
   function RandomRange(min, max) {
-    let randomNumber;
 
-    randomNumber = Math.floor(Math.random() * max) + min;
+    let randomNumber;
+    let maxminusmin = (max - min) + 1;
+
+    randomNumber = Math.floor(Math.random() * maxminusmin) + min;
 
     return randomNumber;
   }
@@ -48,26 +50,38 @@
     console.log(`%c App Started...`, "font-weight: bold; font-size: 20px;");
     let Roll;
 
-    Result.innerHTML = "0";
+    Result.textContent = "0";
 
-    minRangeValue.innerHTML = min;
-    maxRangeValue.innerHTML = max;
+    minRangeValue.textContent = min;
+    maxRangeValue.textContent = max;
 
     RollButton.addEventListener("click", function(){
       Roll = RandomRange(min, max);
-      Result.innerHTML = Roll;
+      Result.textContent = Roll;
       Result.style.fontSize = "24px";
-      console.log(`%c Generated Number: ${Roll}`,"font-weight: bold; font-size: 16px; color: green;");
+      //console.log(`%c Generated Number: ${Roll}`,"font-weight: bold; font-size: 16px; color: green;");
     });
 
     minRange.addEventListener("input", function(){
-      minRangeValue.innerHTML = minRange.value;
-      min = minRange.value;
+      
+      min = parseInt(minRange.value); 
+      max = parseInt(maxRange.value);
+      if(min > max) {
+        minRange.value = maxRange.value;
+        min = max;
+      }
+      minRangeValue.textContent = minRange.value;
+     
     });
 
     maxRange.addEventListener("input", function(){
-      maxRangeValue.innerHTML = maxRange.value;
-      max = maxRange.value;
+      min = parseInt(minRange.value); 
+      max = parseInt(maxRange.value);
+      if(max < min) {
+        maxRange.value = minRange.value;
+        max = min;
+      }
+      maxRangeValue.textContent = maxRange.value;
     });
 
     
