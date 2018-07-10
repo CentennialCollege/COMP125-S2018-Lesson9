@@ -1,31 +1,23 @@
 // core module - IIFE
 (function() {
   // App variables
-  let person;
-  let student;
+  let RollButton;
+  let Result;
+  let minRange;
+  let maxRange;
+  let minRangeValue;
+  let maxRangeValue;
+  let min;
+  let max;
 
-  /*
-  let Student = (function() {
-    function Student(name, age, studentID) {
-      objects.Person.call(this, name, age);
-      this._studentID = studentID;
-    }
+  function RandomRange(min, max) {
+    let randomNumber;
 
-    // extends the Person class or inherit from the person class
-    Student.prototype = Object.create(objects.Person);
-    //Student.prototype.constructor = Student;
+    randomNumber = Math.floor(Math.random() * max) + min;
 
-    Student.prototype.saysHello = function() {
-      console.log(`${this._name} says Hello`);
-    };
+    return randomNumber;
+  }
 
-    Student.prototype.studies = function() {
-      console.log(`${this._name} is studying!`);
-    };
-
-    return Student;
-  })();
-  */
 
   /**
    * This function is used for Intialization
@@ -36,10 +28,14 @@
       "font-weight: bold; font-size: 20px;"
     );
 
-    // object creation also called instantiation
-    person = new objects.Person("Tom", 49);
-
-    student = new objects.Student("Carol", 20, "123456789");
+    RollButton = document.getElementById("RollButton");
+    Result = document.getElementById("Result");
+    minRange = document.getElementById("minRange");
+    maxRange = document.getElementById("maxRange");
+    minRangeValue = document.getElementById("minRangeValue");
+    maxRangeValue = document.getElementById("maxRangeValue");
+    min = 1;
+    max = 6;
 
     Main();
   }
@@ -50,14 +46,31 @@
    */
   function Main() {
     console.log(`%c App Started...`, "font-weight: bold; font-size: 20px;");
+    let Roll;
 
-    person.saysHello();
+    Result.innerHTML = "0";
 
-    console.log(person);
+    minRangeValue.innerHTML = min;
+    maxRangeValue.innerHTML = max;
 
-    console.log(student);
-    student.studies();
-    student.saysHello();
+    RollButton.addEventListener("click", function(){
+      Roll = RandomRange(min, max);
+      Result.innerHTML = Roll;
+      Result.style.fontSize = "24px";
+      console.log(`%c Generated Number: ${Roll}`,"font-weight: bold; font-size: 16px; color: green;");
+    });
+
+    minRange.addEventListener("input", function(){
+      minRangeValue.innerHTML = minRange.value;
+      min = minRange.value;
+    });
+
+    maxRange.addEventListener("input", function(){
+      maxRangeValue.innerHTML = maxRange.value;
+      max = maxRange.value;
+    });
+
+    
   }
 
   window.addEventListener("load", Start);
